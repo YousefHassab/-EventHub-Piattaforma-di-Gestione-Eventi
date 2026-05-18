@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <span routerLink="/">EventHub 🎫</span>
+  <span class="spacer"></span>
+  
+  <ng-container *ngIf="!(authService.currentUser$ | async); else loggedIn">
+    <button mat-button routerLink="/login">Login</button>
+    <button mat-raised-button color="accent" routerLink="/register">Registrati</button>
+  </ng-container>
+
+  <ng-template #loggedIn>
+    <span class="user-info">Ciao, {{(authService.currentUser$ | async)?.username}}</span>
+    <button mat-button (click)="logout()">Logout</button>
+  </ng-template>
+</mat-toolbar>

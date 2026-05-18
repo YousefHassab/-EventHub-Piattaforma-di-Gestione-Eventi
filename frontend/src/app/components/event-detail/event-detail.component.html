@@ -1,0 +1,48 @@
+<div class="detail-container" *ngIf="event">
+  <div class="header">
+    <img [src]="event.cover_image ? baseUrl + '/uploads/' + event.cover_image : 'https://via.placeholder.com/800x400'" alt="Locandina">
+    <div class="overlay">
+      <h1>{{event.title}}</h1>
+      <p><mat-icon>category</mat-icon> {{event.category}}</p>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="info">
+      <h3>Informazioni</h3>
+      <p><mat-icon>calendar_today</mat-icon> <strong>Data:</strong> {{event.date | date:'medium'}}</p>
+      <p><mat-icon>place</mat-icon> <strong>Luogo:</strong> {{event.location}} ({{event.city}})</p>
+      <p><mat-icon>people</mat-icon> <strong>Posti disponibili:</strong> {{event.available_seats}} / {{event.capacity}}</p>
+      <p><mat-icon>payments</mat-icon> <strong>Prezzo:</strong> {{event.price === 0 ? 'Gratis' : event.price + ' €'}}</p>
+      
+      <div class="description">
+        <h3>Descrizione</h3>
+        <p>{{event.description || 'Nessuna descrizione fornita.'}}</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <!-- Se l'utente non è loggato -->
+      <div *ngIf="!(authService.currentUser$ | async)" class="login-msg">
+        <p>Accedi per iscriverti a questo evento.</p>
+        <button mat-raised-button color="primary" routerLink="/login">Vai al Login</button>
+      </div>
+
+      <!-- Se l'utente è loggato e non ha ancora il biglietto -->
+      <div *ngIf="(authService.currentUser$ | async) && !ticketQr">
+        <button mat-raised-button color="accent" size="large" 
+                [disabled]="event.available_seats <= 0" 
+                (click)="onBook()">
+          Iscriviti Ora
+        </button>
+      </div>
+
+      <!-- Se l'iscrizione è avvenuta, mostra il QR Code -->
+      <div *ngIf="ticketQr" class="ticket-box">
+        <h3>Il tuo Biglietto 🎟️</h3>
+        <qrcode [qrdata]="ticketQr" [width]="200" [errorCorrectionLevel]="'M'"></qrcode>
+        <p>Mostra questo codice all'ingresso.</p>
+      </div>
+    </div>
+  </div>
+</div>

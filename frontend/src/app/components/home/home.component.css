@@ -1,0 +1,10 @@
+.home-header { text-align: center; margin-bottom: 40px; }
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+.event-card { height: 100%; display: flex; flex-direction: column; }
+.event-card img { height: 200px; object-fit: cover; }
+.price { font-weight: bold; color: #3f51b5; font-size: 1.2em; }
+.no-events { text-align: center; margin-top: 50px; color: gray; }

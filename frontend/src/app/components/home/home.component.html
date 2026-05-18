@@ -1,0 +1,25 @@
+<div class="home-header">
+  <h1>Prossimi Eventi 📅</h1>
+  <p>Scopri e partecipa ai migliori eventi della tua città</p>
+</div>
+
+<div class="events-grid">
+  <mat-card *ngFor="let event of events" class="event-card">
+    <img mat-card-image [src]="event.cover_image ? baseUrl + '/uploads/' + event.cover_image : 'https://via.placeholder.com/300x200?text=Nessuna+Immagine'" alt="Locandina">
+    <mat-card-header>
+      <mat-card-title>{{event.title}}</mat-card-title>
+      <mat-card-subtitle>{{event.category}} - {{event.city}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="date">{{event.date | date:'medium'}}</p>
+      <p class="price">{{event.price === 0 ? 'Gratis' : event.price + ' €'}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button color="primary" [routerLink]="['/event', event.id]">Dettagli</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div *ngIf="events.length === 0" class="no-events">
+  <p>Non ci sono eventi in programma al momento.</p>
+</div>
