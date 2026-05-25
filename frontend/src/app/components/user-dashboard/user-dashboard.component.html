@@ -1,0 +1,25 @@
+<div class="container" style="padding: 20px;">
+  <h1>Area Personale 👤</h1>
+  <mat-tab-group>
+    <mat-tab label="I miei Biglietti">
+      <div *ngIf="bookings.length === 0" style="padding: 20px;">Non hai ancora biglietti.</div>
+      <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+        <mat-card *ngFor="let b of bookings" style="width: 250px; text-align: center; padding: 15px;">
+          <mat-card-header><mat-card-title>Codice #{{b.id}}</mat-card-title></mat-card-header>
+          <mat-card-content>
+            <qrcode [qrdata]="b.qr_code" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <mat-tab label="Profilo">
+      <mat-card style="max-width: 400px; margin-top: 20px; padding: 20px;">
+        <form [formGroup]="profileForm" (ngSubmit)="onUpdateProfile()" style="display: flex; flex-direction: column; gap: 15px;">
+          <mat-form-field appearance="fill"><mat-label>Username</mat-label><input matInput formControlName="username"></mat-form-field>
+          <mat-form-field appearance="fill"><mat-label>Nuova Password</mat-label><input matInput formControlName="password" type="password"></mat-form-field>
+          <button mat-raised-button color="primary">Salva</button>
+        </form>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+</div>

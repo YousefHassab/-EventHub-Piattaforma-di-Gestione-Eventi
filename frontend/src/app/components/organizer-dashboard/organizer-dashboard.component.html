@@ -1,0 +1,58 @@
+<div style="padding: 20px; max-width: 1200px; margin: auto;">
+  <h1>Dashboard Organizzatore 📊</h1>
+  
+  <div *ngIf="!isLoading">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px;">
+      <mat-card style="text-align: center; padding: 20px; background: #e3f2fd; border-radius: 12px;">
+        <mat-card-subtitle>Eventi Pubblicati</mat-card-subtitle>
+        <div style="font-size: 2.5em; font-weight: bold; color: #1976d2;">{{stats.length}}</div>
+      </mat-card>
+      <mat-card style="text-align: center; padding: 20px; background: #e8f5e9; border-radius: 12px;">
+        <mat-card-subtitle>Totale Iscritti</mat-card-subtitle>
+        <div style="font-size: 2.5em; font-weight: bold; color: #2e7d32;">{{totalIscritti}}</div>
+      </mat-card>
+    </div>
+
+    <table mat-table [dataSource]="stats" class="mat-elevation-z8" style="width: 100%; background: white; border-radius: 8px; overflow: hidden;" *ngIf="stats.length > 0">
+      <ng-container matColumnDef="titolo">
+        <th mat-header-cell *matHeaderCellDef> Evento </th>
+        <td mat-cell *matCellDef="let element"> {{element.titolo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="iscritti">
+        <th mat-header-cell *matHeaderCellDef> Iscritti </th>
+        <td mat-cell *matCellDef="let element"> {{element.iscritti}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="incasso">
+        <th mat-header-cell *matHeaderCellDef> Incasso </th>
+        <td mat-cell *matCellDef="let element"> {{element.incasso_stimato | currency:'EUR'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="rating">
+        <th mat-header-cell *matHeaderCellDef> Rating </th>
+        <td mat-cell *matCellDef="let element"> ⭐ {{element.rating_medio}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="azioni">
+        <th mat-header-cell *matHeaderCellDef> CSV </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="exportCSV(element.id)">
+            <mat-icon>download</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div *ngIf="stats.length === 0" style="text-align: center; padding: 40px; color: gray;">
+      Non hai ancora pubblicato eventi.
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" style="text-align: center; padding: 50px;">
+    <p>Caricamento statistiche...</p>
+  </div>
+</div>

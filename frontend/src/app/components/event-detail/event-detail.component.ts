@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { QRCodeModule } from 'angularx-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
 import { EventService } from '../../services/event.service';
 import { AuthService } from '../../services/auth.service';
 import { environment } from '../../../environments/environment';
@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-event-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatButtonModule, MatIconModule, MatSnackBarModule, QRCodeModule],
+  imports: [CommonModule, RouterModule, MatButtonModule, MatIconModule, MatSnackBarModule, QRCodeComponent],
   templateUrl: './event-detail.component.html',
   styleUrls: ['./event-detail.component.css']
 })
@@ -43,7 +43,7 @@ export class EventDetailComponent implements OnInit {
         this.event.available_seats -= 1;
       },
       error: (err) => {
-        this.snackBar.open(err.error.message || 'Errore durante l\'iscrizione', 'Chiudi', { duration: 3000 });
+        this.snackBar.open(err.error?.message || 'Errore durante l\'iscrizione', 'Chiudi', { duration: 3000 });
       }
     });
   }

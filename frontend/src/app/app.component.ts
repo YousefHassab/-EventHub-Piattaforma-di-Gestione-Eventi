@@ -8,12 +8,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   imports: [RouterOutlet, NavbarComponent],
   template: `
     <app-navbar></app-navbar>
-    <div class="container">
+    <div style="padding: 20px; max-width: 1200px; margin: auto;">
       <router-outlet></router-outlet>
     </div>
   `,
   styles: [`
-    .container { padding: 20px; }
+    :host { display: block; min-height: 100vh; background-color: #f5f5f5; }
   `]
 })
 export class AppComponent {}

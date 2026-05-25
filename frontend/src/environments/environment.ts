@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'INCOLLA_QUI_L_URL_DELLA_PORTA_5000/api'
+  apiUrl: 'https://bug-free-rotary-phone-pj7v4qq956xr37jw9-5000.app.github.dev/api'
 };
